@@ -75,4 +75,4 @@ const sendDirs = async (req, res, next) => {
   }
 };
 
-module.exports = { sendImagesIndexes, sendImage, sendDirs, port };
+module.exports = { sendImagesIndexes, sendImage, sendDirs };
