@@ -6,7 +6,7 @@ require("dotenv").config();
 const domain = process.env.DOMAIN;
 const port = process.env.PORT;
 
-const dataSetPath = path.resolve("root/images/");
+const dataSetPath = path.resolve(process.env.DATASET_PATH);
 
 const sendImagesIndexes = async (req, res, next) => {
   try {
@@ -24,9 +24,9 @@ const sendImagesIndexes = async (req, res, next) => {
       const li = `<h4> ${imgIndex}: ${images[imgIndex]} </h4>`;
       const url = `
       <h3> 
-      <a href="http://${domain}:${port}/images/${folder}/${imgIndex}.PNG">
+      <a href="http://${domain}:${port}/images/${folder}/${images[imgIndex]}">
       
-      http://${domain}:${port}/images/${folder}/${imgIndex}.PNG</a>
+      http://${domain}:${port}/images/${folder}/${images[imgIndex]}</a>
       
       </h3>`;
       urls += url;
@@ -47,12 +47,11 @@ const sendImagesIndexes = async (req, res, next) => {
 const sendImage = async (req, res, next) => {
   try {
     console.log("Index");
-    const { folder, index } = req.params;
+    const { folder, imgName } = req.params;
+    console.log(req.params);
     const imgFolder = path.resolve(path.join(dataSetPath, folder));
 
-    const images = fs.readdirSync(imgFolder);
-
-    const imgPath = path.join(imgFolder, images[index]);
+    const imgPath = path.join(imgFolder, imgName);
     res.setHeader("content-type", "image/png");
     res.sendFile(imgPath);
   } catch (err) {

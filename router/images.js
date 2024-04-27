@@ -10,6 +10,6 @@ const {
 
 router.route("/").get(sendDirs);
 router.route("/:folder").get(sendImagesIndexes);
-router.route("/:folder/:index.PNG").get(sendImage);
+router.route("/:folder/:imgName").get(sendImage);
 
 module.exports = router;
