@@ -1,3 +1,4 @@
+const { dir } = require("console");
 const { response } = require("express");
 const fs = require("fs");
 const path = require("path");
@@ -61,7 +62,14 @@ const sendImage = async (req, res, next) => {
 
 const sendDirs = async (req, res, next) => {
   try {
-    const dirs = fs.readdirSync(dataSetPath);
+    let dirs = fs.readdirSync(dataSetPath);
+    dirs = dirs
+      .map((dir) => Number(dir))
+      .sort((a, b) => {
+        if (a < b) return -1;
+        if (a == b) return 0;
+        return 1;
+      });
 
     let response = `<h1> All Directories </h1>`;
 
