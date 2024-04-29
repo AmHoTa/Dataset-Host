@@ -16,6 +16,3 @@ app.listen(
     `Server is Listening on http://${process.env.DOMAIN}:${process.env.PORT}`
   )
 );
-
-let visitors = 0;
-module.exports = { visitors };

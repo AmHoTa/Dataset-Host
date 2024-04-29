@@ -1,5 +1,4 @@
 const express = require("express");
-let { visitors } = require("../app");
 
 const router = express.Router();
 
@@ -8,9 +7,6 @@ const {
   sendImagesIndexes,
   sendDirs,
 } = require("../controller/images");
-
-visitors++;
-console.log(`Visitors: ${visitors}`);
 
 router.route("/").get(sendDirs);
 router.route("/:folder").get(sendImagesIndexes);

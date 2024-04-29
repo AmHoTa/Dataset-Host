@@ -77,6 +77,26 @@ const sendDirs = async (req, res, next) => {
       response += `<h5> <a href="http://${domain}:${port}/images/${dir}"> http://${domain}:${port}/images/${dir} </a> </h5>`;
     }
 
+    labels = `
+    <hr>
+    
+
+<pre>
+<b>Labels                    RGB Values</b>
+Background/Clutter        (0,0,0)
+Building                  (128,0,0)
+Road                      (128,64,128)
+Tree                      (0,128,0)
+Low Vegetation            (128,128,0)
+Car                       (192,0,192)
+Human                     (64,64,0)
+Wall                      Soon
+Truck                     Soon
+</pre>
+  `;
+
+    response += labels;
+
     res.send(response);
   } catch (err) {
     next(err);
