@@ -2,6 +2,7 @@ const { dir } = require("console");
 const fs = require("fs");
 const path = require("path");
 require("dotenv").config();
+owners = require("../owners.json");
 
 const domain = process.env.DOMAIN;
 const port = process.env.PORT;
@@ -10,20 +11,26 @@ const dataSetPath = path.resolve(process.env.DATASET_PATH);
 
 const sendImagesIndexes = async (req, res, next) => {
   try {
-    console.log("Folder");
     const { folder } = req.params;
     const imgFolder = path.resolve(path.join(dataSetPath, folder));
-
     const images = fs.readdirSync(imgFolder);
 
     let response = `<h1> Folder ${folder} Items: </h1>`;
     let urls = "";
+    let owner = undefined;
+    let form = undefined;
 
     for (let imgIndex in images) {
-      // console.log(images[imgIndex]);
-      const li = `<h3> Picture ${Number(imgIndex) + 1}: ${
-        images[imgIndex]
-      } </h3>`;
+      const imgName = images[imgIndex];
+      if (imgName in owners) {
+        owner = owners[imgName];
+      } else {
+        form = `<form action="/images/owners"> <input type="text" placeholder="Name" name="${imgName}"> <input type="submit"> </form>`;
+      }
+
+      const li = `<h3> Picture ${Number(imgIndex) + 1}: ${images[imgIndex]} - ${
+        owner || form
+      }  </h3>`;
       const url = `
       <h3>
       <a href="http://${domain}:${port}/images/${folder}/${images[imgIndex]}">
@@ -42,7 +49,6 @@ const sendImagesIndexes = async (req, res, next) => {
 
 const sendImage = async (req, res, next) => {
   try {
-    console.log("Index");
     const { folder, imgName } = req.params;
     console.log(req.params);
     const imgFolder = path.resolve(path.join(dataSetPath, folder));
