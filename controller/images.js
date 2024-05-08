@@ -2,7 +2,6 @@ const { dir } = require("console");
 const fs = require("fs");
 const path = require("path");
 require("dotenv").config();
-const owners = require("../owners.json");
 
 const domain = process.env.DOMAIN;
 const port = process.env.PORT;
@@ -11,6 +10,8 @@ const dataSetPath = path.resolve(process.env.DATASET_PATH);
 
 const sendImagesIndexes = async (req, res, next) => {
   try {
+    let owners = fs.readFileSync("owners.json");
+    owners = JSON.parse(owners);
     const { folder } = req.params;
     const imgFolder = path.resolve(path.join(dataSetPath, folder));
     const images = fs.readdirSync(imgFolder);
