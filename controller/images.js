@@ -2,7 +2,7 @@ const { dir } = require("console");
 const fs = require("fs");
 const path = require("path");
 require("dotenv").config();
-owners = require("../owners.json");
+const owners = require("../owners.json");
 
 const domain = process.env.DOMAIN;
 const port = process.env.PORT;
@@ -25,7 +25,7 @@ const sendImagesIndexes = async (req, res, next) => {
       if (imgName in owners) {
         owner = owners[imgName];
       } else {
-        form = `<form action="/images/owners"> <input type="text" placeholder="Name" name="${imgName}"> <input type="submit"> </form>`;
+        form = `<form action="/submit/owners"> <input type="text" placeholder="Name" name="${imgName}"> <input type="submit"> </form>`;
       }
 
       const li = `<h3> Picture ${Number(imgIndex) + 1}: ${images[imgIndex]} - ${
