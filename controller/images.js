@@ -1,5 +1,4 @@
 const { dir } = require("console");
-const { response } = require("express");
 const fs = require("fs");
 const path = require("path");
 require("dotenv").config();
@@ -17,28 +16,24 @@ const sendImagesIndexes = async (req, res, next) => {
 
     const images = fs.readdirSync(imgFolder);
 
-    let response = `<h1> All Images in Directory /images/${folder}</h1> index:Name <br>`;
+    let response = `<h1> Folder ${folder} Items: </h1>`;
     let urls = "";
 
     for (let imgIndex in images) {
-      console.log(images[imgIndex]);
-      const li = `<h4> ${imgIndex}: ${images[imgIndex]} </h4>`;
+      // console.log(images[imgIndex]);
+      const li = `<h3> Picture ${Number(imgIndex) + 1}: ${
+        images[imgIndex]
+      } </h3>`;
       const url = `
-      <h3> 
+      <h3>
       <a href="http://${domain}:${port}/images/${folder}/${images[imgIndex]}">
-      
       http://${domain}:${port}/images/${folder}/${images[imgIndex]}</a>
-      
       </h3>`;
       urls += url;
       response += li;
     }
 
-    response += `
-    <h2> How To Download images:
-    https://${domain}:${port}/images/directoryIndex/imageIndex </h2><hr>`;
-
-    response += urls;
+    response = response + "<hr><h1> URLs: </h1>" + urls;
     res.send(response);
   } catch (err) {
     next(err);
@@ -91,8 +86,8 @@ Tree                      (0,128,0)
 Low Vegetation            (128,128,0)
 Car                       (192,0,192)
 Human                     (64,64,0)
-Wall                      Soon
-Truck                     Soon
+Wall                      Soon - News !
+Truck                     Soon - News !
 </pre>
   `;
 
