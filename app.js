@@ -11,7 +11,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use("/images", imageRouter);
-app.use("/submit", ownerRouter);
+app.use(ownerRouter);
 
 app.use(errorHanlder);
 

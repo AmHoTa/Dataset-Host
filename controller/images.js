@@ -17,20 +17,27 @@ const sendImagesIndexes = async (req, res, next) => {
 
     let response = `<h1> Folder ${folder} Items: </h1>`;
     let urls = "";
-    let owner = undefined;
-    let form = undefined;
 
     for (let imgIndex in images) {
       const imgName = images[imgIndex];
-      if (imgName in owners) {
-        owner = owners[imgName];
-      } else {
-        form = `<form action="/submit/owners"> <input type="text" placeholder="Name" name="${imgName}"> <input type="submit"> </form>`;
-      }
 
-      const li = `<h3> Picture ${Number(imgIndex) + 1}: ${images[imgIndex]} - ${
-        owner || form
-      }  </h3>`;
+      const owner = owners.find(
+        (ownerObj) => Object.keys(ownerObj)[0] === imgName
+      );
+
+      let form = undefined;
+      let li = undefined;
+
+      if (!owner) {
+        form = `<form action="/owners"> <input type="text" required placeholder="Name" name="${imgName}"> <input type="submit"> </form>`;
+        li = `<h3> Picture ${Number(imgIndex) + 1}: ${
+          images[imgIndex]
+        } - ${form}</h3>`;
+      } else {
+        li = `<h3> Picture ${Number(imgIndex) + 1}: ${
+          images[imgIndex]
+        } --- ${Object.values(owner)}</h3>`;
+      }
       const url = `
       <h3>
       <a href="http://${domain}:${port}/images/${folder}/${images[imgIndex]}">
