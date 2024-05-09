@@ -100,9 +100,10 @@ Tree                      (0,128,0)
 Low Vegetation            (128,128,0)
 Car                       (192,0,192)
 Human                     (64,64,0)
-Wall                      Soon - News !
-Truck                     Soon - News !
+Wall                      (74, 144, 226)
+Truck                     (80, 227, 194)
 </pre>
+
   `;
 
     response += labels;
