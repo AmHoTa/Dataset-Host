@@ -73,8 +73,15 @@ const sendDirs = async (req, res, next) => {
   try {
     let dirs = fs.readdirSync(dataSetPath);
     dirs = dirs
-      .map((dir) => Number(dir))
+      .map((dir) => {
+        if (!isNaN(Number(dir))) {
+          return Number(dir);
+        } else {
+          return dir;
+        }
+      })
       .sort((a, b) => {
+        console.log(a, b);
         if (a < b) return -1;
         if (a == b) return 0;
         return 1;
@@ -83,7 +90,7 @@ const sendDirs = async (req, res, next) => {
     let response = `<h1> All Directories </h1>`;
     let pic_count = 0;
     for (let dir of dirs) {
-      response += `<h5> <a href="http://${domain}:${port}/images/${dir}"> Folder ${pic_count}</a> </h5>`;
+      response += `<h5> <a href="http://${domain}:${port}/images/${dir}"> Folder ${pic_count} - ${dir}</a> </h5>`;
       pic_count++;
     }
 
