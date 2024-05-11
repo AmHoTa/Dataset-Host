@@ -88,10 +88,9 @@ const sendDirs = async (req, res, next) => {
       });
 
     let response = `<h1> All Directories </h1>`;
-    let pic_count = 0;
+
     for (let dir of dirs) {
-      response += `<h5> <a href="http://${domain}:${port}/images/${dir}"> Folder ${pic_count} - ${dir}</a> </h5>`;
-      pic_count++;
+      response += `<h5> <a href="http://${domain}:${port}/images/${dir}"> Folder - ${dir}</a> </h5>`;
     }
 
     labels = `
