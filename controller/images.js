@@ -87,7 +87,10 @@ const sendDirs = async (req, res, next) => {
         return 1;
       });
 
-    let response = `<h1> All Directories </h1>`;
+    let response = `<h1> All Directories - Working (for now): <mark>Bahar-Static, Bahar-Moving</mark> </h1>`;
+    let reference = "<h2> Some Examples for Reference (Coming soon...) </h2>";
+
+    response += reference;
 
     for (let dir of dirs) {
       response += `<h5> <a href="http://${domain}:${port}/images/${dir}"> Folder - ${dir}</a> </h5>`;
@@ -105,14 +108,23 @@ Road                      (128,64,128)
 Tree                      (0,128,0)
 Low Vegetation            (128,128,0)
 Car                       (192,0,192)
-Human                     (64,64,0)
 Wall                      (74, 144, 226)
 Truck                     (80, 227, 194)
+Pool (may delete soon?)   (add it yourself)
 </pre>
 
   `;
 
-    response += labels;
+    let notes = `<hr> 
+    <strong> <h2> Notes: </h2>
+    <p> .کلاس انسان حذف شده. کلاس استخر اضافه شده ولی فعلا توی دیتامون نداریم . احتمال داره اینم حذف شه </p>
+    <p> !...فولدر بهار استاتیک و بهار مووینگ نیاز داریم زودتر تموم شن </p> 
+    <p> .بزودی یه چندتا عکس هم به عنوان رفرنس میزارم تو سایت </p>
+    
+    </strong>
+    `;
+
+    response += notes + labels;
 
     res.send(response);
   } catch (err) {
