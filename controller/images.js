@@ -7,6 +7,7 @@ const domain = process.env.DOMAIN;
 const port = process.env.PORT;
 
 const dataSetPath = path.resolve(process.env.DATASET_PATH);
+const referencePath = path.resolve(process.env.REFERENCE_PATH);
 
 const sendImagesIndexes = async (req, res, next) => {
   try {
@@ -132,4 +133,29 @@ Pool (may delete soon?)   (add it yourself)
   }
 };
 
-module.exports = { sendImagesIndexes, sendImage, sendDirs };
+const sendReferences = async (req, res, next) => {
+  let response = "<h1>References: </h1>";
+  const referenceFolders = fs.readdirSync(referencePath);
+
+  for (let folder of referenceFolders) {
+    response += `<h2> <a href="/images/references/${folder}"> ${folder} </a> </h2>`;
+  }
+
+  res.send(response);
+};
+
+const sendReferenceIndexes = async (req, res, next) => {
+  const referenceIndex = req.params;
+  const referenceImagePath = await path.resolve(
+    path.join(process.env.REFERENCE_PATH, referenceIndex)
+  );
+  res.sendFile(referenceImagePath);
+};
+
+module.exports = {
+  sendImagesIndexes,
+  sendImage,
+  sendDirs,
+  sendReferences,
+  sendReferenceIndexes,
+};
