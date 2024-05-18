@@ -89,7 +89,7 @@ const sendDirs = async (req, res, next) => {
       });
 
     let response = `<h1> All Directories - Working (for now): <mark>Bahar-Static, Bahar-Moving</mark> </h1>`;
-    let reference = "<h2> Some Examples for Reference (Coming soon...) </h2>";
+    let reference = `<h2> <a href="/images/references"> References + Examples </a> /</h2>`;
 
     response += reference;
 
@@ -146,10 +146,14 @@ const sendReferences = async (req, res, next) => {
 
 const sendReferenceIndexes = async (req, res, next) => {
   const referenceIndex = req.params;
-  const referenceImagePath = await path.resolve(
-    path.join(process.env.REFERENCE_PATH, referenceIndex)
+  console.log(req.params);
+  const referenceImagePath = path.join(
+    process.env.REFERENCE_PATH,
+    referenceIndex["folder"]
   );
-  res.sendFile(referenceImagePath);
+  const file = fs.readdirSync(referenceImagePath);
+  const img = path.join(referenceImagePath, file[0]);
+  res.sendFile(img);
 };
 
 module.exports = {
