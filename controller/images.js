@@ -134,7 +134,8 @@ Pool (may delete soon?)   (add it yourself)
 };
 
 const sendReferences = async (req, res, next) => {
-  let response = "<h1>References: </h1>";
+  let response =
+    "<h1>References: </h1> <h2> Warning: Files will be Downloaded to your computer.";
   const referenceFolders = fs.readdirSync(referencePath);
 
   for (let folder of referenceFolders) {
@@ -153,7 +154,7 @@ const sendReferenceIndexes = async (req, res, next) => {
   );
   const file = fs.readdirSync(referenceImagePath);
   const img = path.join(referenceImagePath, file[0]);
-  res.sendFile(img);
+  res.download(img);
 };
 
 module.exports = {
